@@ -8,7 +8,7 @@ class AuthoritySlugGenerator < OpenStruct
   end
 
   def authority_types
-    @authority_types || ['CTY','UTA','DIS','LBO']
+    @authority_types || ['CTY','UTA','DIS','LBO','LGD','MTD','MTW']
   end
 
   def fetch_slugs
