@@ -14,7 +14,7 @@ class AuthoritySlugGenerator < OpenStruct
   def fetch_slugs
     authorities = fetch_authorities
     slugs = authorities.values.map {|authority|
-      [ slug_for_authority_name(authority["name"]), { "ons" => authority["codes"]["ons"], "gss" => authority["codes"]["gss"] } ]
+      [ slug_for_authority_name(authority["name"]), { "name" => authority["name"], "ons" => authority["codes"]["ons"], "gss" => authority["codes"]["gss"] } ]
     }
     Hash[slugs]
   end
