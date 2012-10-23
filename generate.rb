@@ -8,7 +8,7 @@ class AuthoritySlugGenerator < OpenStruct
   end
 
   def authority_types
-    @authority_types || ['CTY','UTA','DIS','LBO','LGD','MTD']
+    @authority_types || ['CTY','UTA','DIS','LBO','LGD','MTD','COI']
   end
 
   def fetch_slugs
@@ -25,9 +25,19 @@ class AuthoritySlugGenerator < OpenStruct
   end
 
   def slug_for_authority_name(name)
+    return fixed_authority_slugs[name] unless fixed_authority_slugs[name].nil?
+
     normalized_name = name.sub(/(District|County|Borough|City)? (Council|Corporation)?$/i, '')
     normalized_name.sub!(/^(Comhairle nan|City of)/, '') unless normalized_name =~ /City of London/
     normalized_name.strip.downcase.gsub(/[^A-Za-z0-9\-\s]/,'').gsub(/\s+/, '-')
+  end
+
+  def fixed_authority_slugs
+    {
+      "Durham County Council" => "county-durham",
+      "Hull City Council" => "kingston-upon-hull",
+      "Rhondda Cynon Taf Council" => "rhondda-cynon-taff"
+    }
   end
 end
 
