@@ -25,8 +25,9 @@ class AuthoritySlugGenerator < OpenStruct
   end
 
   def slug_for_authority_name(name)
-    normalized_authority_name = name.sub(/(District|County|Borough|City)? (Council|Corporation)?$/, '').strip
-    normalized_authority_name.downcase.gsub(/[^A-Za-z0-9\-\s]/,'').gsub(/\s+/, '-')
+    normalized_name = name.sub(/(District|County|Borough|City)? (Council|Corporation)?$/i, '')
+    normalized_name.sub!(/^(Comhairle nan|City of)/, '') unless normalized_name =~ /City of London/
+    normalized_name.strip.downcase.gsub(/[^A-Za-z0-9\-\s]/,'').gsub(/\s+/, '-')
   end
 end
 
